@@ -1,0 +1,9 @@
+# 앱스토어 리뷰 스크래핑
+google-play-scraper==1.2.7
+app-store-scraper==0.3.5
+
+# AI 요약 (Claude API)
+anthropic>=0.40.0
+
+# 기본 내장 모듈 사용 (smtplib, json, re, datetime)
+# 별도 설치 불필요
