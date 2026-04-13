@@ -12,24 +12,31 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: "🔄 코드 체크아웃"
+      - name: "코드 체크아웃"
         uses: actions/checkout@v4
 
-      - name: "🐍 Python 3.11 설정"
+      - name: "Python 3.11 설정"
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
 
-      - name: "📦 라이브러리 설치"
+      - name: "라이브러리 설치"
         run: pip install -r requirements.txt
 
-      - name: "🔍 이메일 설정 확인 (디버그)"
+      - name: "이메일 설정 확인"
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-        run: python -c "import os; s=os.environ['SENDER_EMAIL']; print('SENDER domain: @'+s.split('@')[-1] if '@' in s else 'NO @ FOUND'); print('SENDER length:', len(s))"
+        run: |
+          python3 -c "
+          import os
+          s = os.environ.get('SENDER_EMAIL', '')
+          domain = s.split('@')[-1] if '@' in s else 'NO_AT_SIGN'
+          print('SENDER domain: @' + domain)
+          print('SENDER length:', len(s))
+          "
 
-      - name: "🚀 리뷰 수집 및 리포트 발송"
+      - name: "리뷰 수집 및 리포트 발송"
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SENDER_EMAIL:      ${{ secrets.SENDER_EMAIL }}
