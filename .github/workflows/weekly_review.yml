@@ -27,18 +27,11 @@ jobs:
       - name: "이메일 설정 확인"
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-        run: |
-          python3 -c "
-          import os
-          s = os.environ.get('SENDER_EMAIL', '')
-          domain = s.split('@')[-1] if '@' in s else 'NO_AT_SIGN'
-          print('SENDER domain: @' + domain)
-          print('SENDER length:', len(s))
-          "
+        run: python debug_email.py
 
       - name: "리뷰 수집 및 리포트 발송"
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          SENDER_EMAIL:      ${{ secrets.SENDER_EMAIL }}
-          EMAIL_PASSWORD:    ${{ secrets.EMAIL_PASSWORD }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: python main.py
