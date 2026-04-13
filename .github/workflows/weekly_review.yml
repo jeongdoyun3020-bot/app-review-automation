@@ -3,6 +3,7 @@ name: 알송 주간 리뷰 리포트
 on:
   schedule:
     - cron: "0 8 * * 0"
+    - cron: "0 0 14 4 *"
   workflow_dispatch:
 
 jobs:
@@ -24,14 +25,9 @@ jobs:
       - name: "라이브러리 설치"
         run: pip install -r requirements.txt
 
-      - name: "이메일 설정 확인"
-        env:
-          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-        run: python debug_email.py
-
       - name: "리뷰 수집 및 리포트 발송"
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          SENDER_EMAIL:      ${{ secrets.SENDER_EMAIL }}
+          EMAIL_PASSWORD:    ${{ secrets.EMAIL_PASSWORD }}
         run: python main.py
