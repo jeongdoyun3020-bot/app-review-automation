@@ -294,6 +294,16 @@ def create_html_report(
   <div class="header">
     <h1>🎵 알송 (Alsong) 주간 앱 리뷰 리포트</h1>
     <p>수집 기간: {start_date} ~ {end_date} &nbsp;|&nbsp; 자동 생성: {generated_at}</p>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="https://play.google.com/store/apps/details?id=com.estsoft.alsong"
+         style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.18);color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,0.35);">
+        ▶ Google Play 스토어
+      </a>
+      <a href="https://apps.apple.com/kr/app/alsong/id364013007"
+         style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.18);color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,0.35);">
+         App Store
+      </a>
+    </div>
   </div>
 
   <!-- 통계 카드 -->
@@ -415,12 +425,12 @@ def main():
 
     print("\n🤖 [3/4] Claude AI 분석 중...")
     summary = summarize_with_claude(all_reviews)
-    print("  #→ AI 요약 완료")
+    print("   → AI 요약 완료")
 
     print("\n📧 [4/4] HTML 리포트 생성 및 이메일 발송...")
     html = create_html_report(all_reviews, summary, start_s, end_s)
 
-    month_range = f"{cutoff.strftime('%m/%d')}~{now.strftime('%m/%d')}"
+    month_range = f"{cutoff.strftime('%m/%d')}~{mow.strftime('%m/%d')}"
     subject = f"[알송] 주간 리뷰 리포트 ({month_range}) — 총 {len(all_reviews)}건"
     send_email(html, subject)
 
