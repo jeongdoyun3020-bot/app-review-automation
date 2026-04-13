@@ -24,6 +24,11 @@ jobs:
       - name: "📦 라이브러리 설치"
         run: pip install -r requirements.txt
 
+      - name: "🔍 이메일 설정 확인 (디버그)"
+        env:
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+        run: python -c "import os; s=os.environ['SENDER_EMAIL']; print('SENDER domain: @'+s.split('@')[-1] if '@' in s else 'NO @ FOUND'); print('SENDER length:', len(s))"
+
       - name: "🚀 리뷰 수집 및 리포트 발송"
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
