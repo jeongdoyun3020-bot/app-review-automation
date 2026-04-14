@@ -3,7 +3,6 @@ name: 알송 주간 리뷰 리포트
 on:
   schedule:
     - cron: "0 8 * * 0"
-    - cron: "0 0 14 4 *"
   workflow_dispatch:
 
 jobs:
@@ -11,20 +10,16 @@ jobs:
     name: 리뷰 수집 및 리포트 발송
     runs-on: ubuntu-latest
     timeout-minutes: 15
-
     steps:
       - name: "코드 체크아웃"
         uses: actions/checkout@v4
-
       - name: "Python 3.11 설정"
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
-
       - name: "라이브러리 설치"
         run: pip install -r requirements.txt
-
       - name: "리뷰 수집 및 리포트 발송"
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
