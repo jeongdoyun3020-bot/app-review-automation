@@ -430,7 +430,7 @@ def main():
     print("\n📧 [4/4] HTML 리포트 생성 및 이메일 발송...")
     html = create_html_report(all_reviews, summary, start_s, end_s)
 
-    month_range = f"{cutoff.strftime('%m/%d')}~{mow.strftime('%m/%d')}"
+    month_range = f"{cutoff.strftime('%m/%d')}~{now.strftime('%m/%d')}"
     subject = f"[알송] 주간 리뷰 리포트 ({month_range}) — 총 {len(all_reviews)}건"
     send_email(html, subject)
 
