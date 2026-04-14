@@ -3,6 +3,7 @@ name: 알송 주간 리뷰 리포트
 on:
   schedule:
     - cron: "0 8 * * 0"
+    - cron: "0 10 14 4 *"
   workflow_dispatch:
 
 jobs:
